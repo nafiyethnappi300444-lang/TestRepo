@@ -1,0 +1,545 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>RR Online - Online Revenue Recovery Services, Department of Revenue, Kerala State</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="RR, RROnline, RR Online, Revenue, Recovery, Requisition, Revenue Recovery, revenue recovery, rr, rronline, rr online">
+    <meta name="description" content="Kerala Revenue Recovery Act 1968 empowers the District Collector, to recover the Government dues as noticed in the Act from the defaulter">
+    <meta name="author" content="NIC Kerala State Centre">
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="css/web_style.css">
+    <link defer rel="stylesheet" href="lib/sweet-alert.css">
+    <link defer rel="stylesheet" href="css/lightbox_form.css">
+    <link async rel="stylesheet" href="css/font-awesome-4.5.0/css/font-awesome.min.css">
+    <script src="js/jquery-3.6.0.js"></script>
+    <script src="js/popper.js"></script>
+    <script defer src="js/jsfunctions.js"></script>
+    <script defer src="js/md5.js"></script>
+    <script defer src="js/passAuth.js"></script>
+    <script defer src="lib/sweet-alert.js"></script>
+    <script defer src="js/validatePreventActions.js"></script>
+    <script defer src="js/lightbox_form.js"></script>
+    <link rel="stylesheet" href="cssmenu/styles.css">
+    <script src="cssmenu/script.js"></script>
+    <script defer src="js/commonJSvalidations.js"></script>
+    <script language="javascript" src="js/accessibility.js" type="text/javascript"></script>
+    <link href="css/accessibility.css" rel="stylesheet" media="screen">
+
+    <link rel="stylesheet" href="css/font-awesome-eyes.css">
+    <style>
+        footer {
+            position: relative;
+            border-top: 1px solid #d9d9d9;
+            background: lightgoldenrodyellow;
+        }
+
+        .box-wrap {
+            background: #ffffff;
+            max-width: 960px;
+            margin: 0 auto;
+            box-shadow: 0px 1px 1px 2px #ccc;
+        }
+
+        .welln {
+            background-clip: border-box;
+            background-color: #e5e5e5;
+            border: 5px solid lightgray;
+            border-radius: 6px;
+            box-shadow: 0 0 1px #f9f9f9;
+            color: black;
+            line-height: 140%;
+            margin-top: 0px;
+            padding: 6px 10px 5px;
+        }
+
+        .welln p {
+            color: #333333;
+            font-weight: bold;
+        }
+
+        #close {
+            float: right;
+            display: inline-block;
+            padding: 2px 5px;
+            background: #ccc;
+        }
+
+        .welln_logo {
+            background-clip: border-box;
+            background-color: #e5e5e5;
+            border: 5px solid lightgray;
+            border-radius: 6px;
+            box-shadow: 0 0 1px #f9f9f9;
+            color: black;
+            line-height: 140%;
+            margin-top: 0px;
+            padding: 6px 10px 5px;
+        }
+
+        .ban1 {
+            position: relative;
+            top: 0;
+            left: 0;
+        }
+
+        .myDIV {
+            width: 100%;
+            height: auto;
+            text-align: center;
+            background-color: #fcfdfd;
+        }
+
+        .active {
+            background-color: white;
+        }
+
+        #login .form-signin {
+            background: linear-gradient(#c12609 8%, #de5c00 100%);
+        }
+
+        #login .form-signin .login_head img {
+            mix-blend-mode: luminosity;
+            background-color: transparent;
+        }
+
+        .captcha-image-div {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 150px;
+            height: 30px;
+            margin-right: auto;
+            margin-left: 20px;
+        }
+
+        .captcha-image-div img#captchaImage {
+            width: 120px;
+            height: 30px;
+        }
+
+        .captcha-image-div .captcha-refresh {
+            color: #fff;
+            font-size: 16px;
+        }
+    </style>
+    <script>
+        (function($) {
+
+            // Enables console.log() in all browsers for error messages
+            window.log = function() {
+                log.history = log.history || [];
+                log.history.push(arguments);
+                if (this.console) {
+                    console.log(Array.prototype.slice.call(arguments))
+                }
+            };
+
+            $.fn.prevue = function(settings) {
+
+                /**
+                 * Default settings
+                 *
+                 * string    fontIconClassNameOn      Class name of the icon to use when preview is on
+                 * string    fontIconClassNameOff     Class name of the icon to use when preview is off
+                 * string    fontSize                 The size of the icon
+                 * string    color                    The color of the icon; in hex format (e.g #FFF or #000000). You may
+                 *                                    also use rgb() and rgba() values here
+                 * int       offsetX                  X-offset from the end of the input element; useful when the preview
+                 *                                    button's position is off
+                 * int       offsetY                  Y-offset from the top of the input element; useful when the preview
+                 *                                    button's position is off
+                 */
+
+                var defaults = {
+                    fontIconClassNameOff: 'prevue-icon-eye', // These are interchanged since when preview is off you'll want show the 'on' icon
+                    fontIconClassNameOn: 'prevue-icon-eye-off',
+                    fontSize: '16',
+                    color: '#999',
+                    offsetX: 5,
+                    offsetY: 0
+                };
+
+                // Merge the user settings with the defaults (if passed)
+                if (settings) {
+                    $.extend(defaults, settings)
+                }
+
+                return this.each(function() {
+
+                    // Selected node
+                    var $o = $(this);
+
+                    // Name of the selected node
+                    var node = this.nodeName.toLowerCase();
+
+                    // If the node is actually an input[type="password"] element
+                    if (node == "input" && this.type == "password") {
+
+                        // Build the preview button
+                        var $input = $o,
+
+                            $previewIcon = $('<i id="prviewbtn">')
+                            .css({
+                                'font-size': defaults.fontSize + 'px'
+                            })
+                            .css({
+                                'color': 'black'
+                            })
+                            .addClass('prevue-icon')
+                            .addClass(defaults.fontIconClassNameOn),
+
+                            paddingTop = $o.css('padding-top'),
+                            paddingBottom = $o.css('padding-bottom'),
+                            height = parseInt($o.height()) + parseInt(paddingTop.substring(0, paddingTop.length - 2)) + parseInt(paddingBottom.substring(0, paddingBottom.length - 2)),
+
+                            $previewBtn = $('<a >')
+
+                            .attr('href', 'javascript: void(0);')
+                            .addClass('prevue-btn')
+                            .css({
+                                'text-decoration': 'none',
+                                'position': 'absolute',
+                                'right': parseInt(0 + defaults.offsetX) + 'px',
+                                'height': parseInt(height + defaults.offsetY) + 'px',
+                                'line-height': (height + defaults.offsetY) + 'px',
+                                'color': defaults.color
+                            }),
+
+                            $wrapper = $('<span>')
+                            .addClass('prevue-wrapper')
+                            .css({
+                                'position': 'relative'
+                            });
+                        $previewBtn.append($previewIcon);
+                        $o.replaceWith($wrapper);
+                        $wrapper.append($input);
+                        $wrapper.append($previewBtn);
+                        $previewBtn.on('click', function(e) {
+                            var $el = $(this).prev(),
+                                $icon = $(this).children().eq(0);
+                            if ($el.attr('type') == 'password') {
+                                $el.attr('type', 'text');
+                                $icon.removeClass(defaults.fontIconClassNameOn).addClass(defaults.fontIconClassNameOff);
+                                var hidden = $('#hiddenpass').val();
+                                var mystring = hidden.replace(/[*]/g, '');
+                                $('#hiddenpass').val(mystring);
+                                $('#password').val(mystring);
+                            } else {
+                                $el.attr('type', 'password');
+                                $icon.removeClass(defaults.fontIconClassNameOff).addClass(defaults.fontIconClassNameOn);
+                            }
+                        });
+
+                    } else {
+                        console.log('Prevue.js only works on <input type="password"> elements, while you have used it on a <' + node + '> element.');
+                        return false;
+                    }
+
+                });
+
+            };
+
+        })(jQuery);
+
+
+
+
+
+
+
+        $(function() {
+            $('.marquee').mouseover(function() {
+                $(this).attr('scrollamount', 0);
+            });
+            $('.marquee').mouseout(function() {
+                $(this).attr('scrollamount', 2);
+            });
+        });
+
+        function blinker() {
+            $('.jquery_blink').fadeOut(95);
+            $('.jquery_blink').fadeIn(95);
+        }
+
+        setInterval(blinker, 300);
+
+        function closediv() {
+            $('.welln_logo').hide();
+        }
+        $(document).ready(function() {
+            $('.preview-password').prevue();
+        });
+
+        function myFunction(divid) {
+            var x = document.getElementById(divid);
+            if (divid == 'myDIV1') {
+                document.getElementById('myDIV1').style.display = "block";
+                document.getElementById('myDIV2').style.display = "none";
+                document.getElementById('myDIV3').style.display = "none";
+                $('#li1').addClass('active');
+                $('#li2').removeClass('active');
+                $('#li3').removeClass('active');
+            }
+            if (divid == 'myDIV2') {
+                document.getElementById('myDIV2').style.display = "block";
+                document.getElementById('myDIV1').style.display = "none";
+                document.getElementById('myDIV3').style.display = "none";
+                $('#li2').addClass('active');
+                $('#li1').removeClass('active');
+                $('#li3').removeClass('active');
+            }
+            if (divid == 'myDIV3') {
+                $('#li3').addClass('active');
+                $('#li1').removeClass('active');
+                $('#li2').removeClass('active');
+                document.getElementById('myDIV3').style.display = "block";
+                document.getElementById('myDIV1').style.display = "none";
+                document.getElementById('myDIV2').style.display = "none";
+            }
+        }
+    </script>
+
+</head>
+
+<body style="padding-top: 0px;" id="login">
+    <div class="box-wrap">
+        <div id="header-wrap">
+            <header class="group"><img src="images/logo.png" alt="rr online" style="width: 960px; height: 125px" /></header>
+        </div>
+        <div id='cssmenu'>
+            <ul>
+                <li><a href="Help/rr_rules.pdf" target="_blank">RR Rules</a></li>
+                <li class="divider"></li>
+                <li><a href="req_authorities.php" target="_blank">Req. Offices</a></li>
+                <li class="divider"></li>
+                <li><a href="attached_property.php" target="_blank">Attached <br>Properties</a></li>
+                <li class="divider"></li>
+                <!--            <li><a href="rrc_details.php" target="_blank" >RR Collections</a></li>
+            <li class="divider"></li>-->
+                <li><a href="rrc_status.php" target="_blank">RRC/Demand <br> Notice Status</a></li>
+                <li class="divider"></li>
+                <li><a href="nodal_officers.php" target="_blank">RA Nodal Officers</a></li>
+                <li class="divider"></li>
+                <li><a href="dist_adminlist.php" target="_blank">District <br>Administrator</a></li>
+                <li class="divider"></li>
+                <li><a href="headof_account.php" target="_blank">Head of Accounts</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Circulars <br>/ Govt.Orders</a>
+                    <ul style="z-index:95;">
+                        <li><a href="Help/CIRCULAR-28-03-2019.pdf" target="_blank">Proceedings dated 28/03/2019</a></li>
+                        <li><a href="Help/CIRCULAR-21-03-2019.pdf" target="_blank">Circular dated 21/03/2019</a></li>
+                        <li><a href="Help/RA_Review_meeting_minutes.pdf" target="_blank">Minutes dated 05/03/2019</a></li>
+                        <li><a href="Help/CIRCULAR-01-01-2019.pdf" target="_blank">Circular dated 01/01/2019</a></li>
+                        <li><a href="Help/CIRCULAR-16-06-2018.pdf" target="_blank">Circular dated 16/06/2018</a></li>
+                        <li><a href="Help/CIRCULAR-05-04-2018.pdf" target="_blank">Proceedings dated 05/04/2018</a></li>
+                        <li><a href="Help/CIRCULAR-10-10-2017.pdf" target="_blank">Circular dated 10/10/2017</a></li>
+                        <li><a href="Help/Circular_rronline.pdf" target="_blank">Circular dated 21/4/2017</a></li>
+                        <li><a href="Help/CIRCULAR-11-01-2017.pdf" target="_blank">Circular dated 11/01/2017</a></li>
+                    </ul>
+                </li>
+                <li class="divider"></li>
+                <li><a href="viewform1.php" target="blank">Verify Form<br>1 & 10</a></li>
+                <li class="divider"></li>
+                <li><a style="margin-top:-3px;" id="openNav"><img height="23" width="23" src="images/accessibility-icon.png" /></a>
+                </li>
+            </ul>
+        </div>
+
+        <div id="container">
+            <div id="shadowing"></div>
+            <div id="box" align="center" style="height:20%;overflow:scroll">
+                <span id="boxtitle" style="font-size:16px;padding:10px 0 0;" class=""></span>
+                <div id="boxtitle1" style="font-size:12px;padding:20px 0 0;color:#0064b4;" class=""></div>
+                <div id="list_pop_up" style=" float: left;overflow: auto;width: 95%;margin-top:1%;"></div>
+            </div>
+            <div id="slides">
+                <div class="slides_container"><img src="images/banner.png" alt="rronline" class="ban1" />
+
+                </div>
+                <div class="slides_login" align="center">
+
+                    <form class="form-signin" name="loginform" id="loginform" method="post">
+                        <div class="login_head"><img src="images/login_header.png" style="width:244px;height:50px" /></div>
+                        <div class="login_frm">
+                            <input type="hidden" name="hid_usrlvl" id="hid_usrlvl" value="R" />
+                            <input type="text" name="username" id="username" class="input input-check" placeholder="User ID/PEN" required="required" autocomplete="off" tabindex="1" autofocus="autofocus" pattern="[0-9a-zA-Z]+" maxlength="12" title="alphanumeric only">
+                            <input name="password" type="password" id="password" class="input preview-password input-check" placeholder="Password" required="required" autocomplete="off" tabindex="2" onchange="change_pass()">
+                            <input name="hiddenpass" id="hiddenpass" type="hidden" />
+                            <div class="captcha-image-div">
+                                <img id="captchaImage" src="getimg.php">
+                                <a class="captcha-refresh" onclick="refreshcaptcha();"><i class="fa fa-refresh text-white"></i></a>
+                            </div>
+                            <div> <span>&nbsp;</span>
+                                <input id="captcha" class="input input-check" name="captcha" value="" type="text" autocomplete="off" required="required" placeholder="Captcha Text" tabindex="3" style="width:95px;float:left;margin-left:20px;">
+                            </div>
+                            <input type="submit" class="login_btn" value="Sign In" tabindex="4" onclick="md5auth_Login('404174692')" />
+                            <a href="#" onclick="forget_pass('RA');" style="float:left;margin-left:27px;margin-top:-7px;color:white;">Forgot Password?</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div id="newservice">
+                <div id="web">
+                    <h3><strong><span style="color: #0574b3">Revenue Recovery</span></strong></h3>
+                    <p>
+                        Kerala Revenue Recovery Act 1968 empowers the District Collector,
+                        to recover the Government dues as noticed in the Act from the defaulter
+                        residing in the district having property.
+                    </p>
+                </div>
+                <div id="vector">
+                    <div>
+                        <a href="emplogin.php" tabindex="5">
+                            <img src="images/revenue_dept.jpg" alt="requisition authority" style="width:250px;height:84px" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="service">
+                <div class="title_box" style="font-family:Arial"><img src="images/whatsnew.png" alt="whatsnew" style="vertical-align: middle" />&nbsp; Whats New! </div>
+                <div class="border_box">
+
+                                            <div align="justify" style="padding: 5px 10px;">
+                            <p> <img style="margin-bottom:-5px" src="images/new.png" height="25" width="32" /> <a style="color:green" target="_blank" href="Help/Recovery Account Verification and Consent for ePayment For Non-Banking, Non-Government Requisition Authorities and For Government Requisition Authorities.pdf" >27/03/2025 - Consent for ePayment For Non-Banking, Non-Government Requisition Authorities and For Government Requisition Authorities (For Due Natures mapped to Bank / TSB Account).</a></p>
+                        </div>
+
+                                            <div align="justify" style="padding: 5px 10px;">
+                            <p> <img style="margin-bottom:-5px" src="images/new.png" height="25" width="32" /> <a style="color:#005580" target="_blank" href="Help/RecoveryBankAccountDetailsRevision.pdf" >24/02/2025 - Recovery Bank Account Revision for Non Government Non Banking Requisition Authorities - Click to view details.</a></p>
+                        </div>
+
+                                            <div align="justify" style="padding: 5px 10px;">
+                            <p> <img style="margin-bottom:-5px" src="images/new.png" height="25" width="32" /> <a style="color:green" target="_blank" href="Help/Loan Account Verification For Banking Requestion Authorities for ePayment.pdf" >02/03/2024 - Loan Account Verification For Banking Requestion Authorities for ePayment -  Click for details.</a></p>
+                        </div>
+
+                                            <div align="justify" style="padding: 5px 10px;">
+                            <p><a style="color:#005580" >01/11/2023 - Parichay Integration - Revenue Department users are enabled with Parichay (Single-Sign-On platforms designed to onboard the Government users under a single authentication framework). For this facaility users may update profile with Government email address.</a></p>
+                        </div>
+
+                    
+                </div>
+                <div id="viewall" style="text-align: center;">
+                    <span style="padding-top:5px;"><strong><a href="view_whatsnew.php" target="_blank"> View All</a></strong> </span>
+                </div>
+            </div>
+
+            <div id='cssmenu' style="text-align: center;">
+                <ul>
+                    <li id="li1"><a onclick="myFunction('myDIV1')">Notice</a></li>
+
+                    <li id="li2" class="active"><a onclick="myFunction('myDIV2')">Contact Details</a></li>
+
+                    <li id="li3"><a onclick="myFunction('myDIV3')">DSC Help</a></li>
+
+                </ul>
+                <div id="myDIV1" class="myDIV" style="display:none;padding: 10px 0;">
+                    <p style="font-size: 12px; text-align: justify;margin-left:10px;margin-right:10px;">Requisition Authorities who do not have userid may check <a href="nodal_officers.php" target="_blank">Nodal Officers List</a> link in this page and contact respective nodal officer. If nodal officer details are not found, RA may request Department Head to nominate a state level nodal officer and inform CLR and NIC (<a>lrbclrtvm@gmail.com</a>, <a>lrcb2clerk@gmail.com</a>, <a>rr.kerala@gov.in</a>).</p>
+                </div>
+                <div id="myDIV2" class="myDIV">
+                    <table cellpadding="0" cellspacing="0" border="0" class="  table-bordered table" style="margin-bottom:0px !important;">
+                        <tr>
+                            <th>State Level Nodal Officer</th>
+                            <th>Help Desk</th>
+                            <th>RA Nodal Officers</th>
+                            <th>District Admin</th>
+                        </tr>
+                        <tr>
+                            <td style="width:20% ! important">Phone: <a>8113997473</a><br>
+                                E-mail: <a>lrcb2clerk@gmail.com</a></td>
+                            <td style="width:20% ! important">Phone: <a>8113997473</a><br>
+                                E-mail: <a>lrcb2clerk@gmail.com</a></td>
+                            <td style="width:20% ! important">Requisitioning Authorities may
+                                contact <br><a href="nodal_officers.php" target="_blank">RA Nodal Officers</a> <br>for
+                                all user requirements.</td>
+                            <td style="width:20% ! important">Revenue Department users may contact <a href="dist_adminlist.php" target="_blank">District Administrators</a> for all user requirements.</td>
+                        </tr>
+                    </table>
+
+                </div>
+                <div id="myDIV3" class="myDIV" style="display:none;">
+                    <table cellpadding="0" cellspacing="0" border="0" class="  table-bordered table" style="margin-bottom:0px !important;">
+                        <tr>
+                            <td style="width:60% !important;"><a href="signer_integration_help.php" target="_blank">NICDSIGN (Cross-platform, browser-independent Digital Signature Solution)</a></td>
+                            <td style="width:40% !important;"><a href="Help/dsc troubleshooting_pdf.pdf" target="_blank">DSC Troubleshooting</a></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+
+            <footer class="group" style="height:65px;">
+                <div id="footer-left" style="padding-left:10px">
+                    <a href="https://digitizeindia.gov.in/" target="_blank"> <img src="images/digital-india-logo.png" alt="kerala revenue recovery" style="width: 150px; height: 56px" /> </a>
+                </div>
+                <div id="footer-left" style="padding-left:10px">
+                    <p style="font-weight: bold; text-align: center">Content Owned and Managed by Revenue Department, Government of Kerala.<br>Designed & developed by National Informatics Centre, Kerala State Centre.</br> Ministry of Electronics & Information Technology, Government of India.<br></p>
+                    <span style="font-size:8px;text-align:center;margin-left:300px;">43</span>
+                    <p style="font-weight: bold; text-align: center">
+                        <font style="font-weight: normal">Copyright © 2017. All Rights Reserved. | <a href="index.php">Home</a> | <a href="disclaimer.php">Disclaimer</a> | <a href="policies.php">Policies</a> | <a href="contacts.php">Contact us</a> | <a href="feedback.php">Feedback</a> | <a href="freq_ask.php">FAQ</a> | <a href="sitemap.php">Site Map</a></font><br>
+                    </p>
+                </div>
+                <div id="footer-right" style="padding-right:10px">
+                    <a href="https://www.nic.in/" target="_blank"> <img src="./images/niclogo.png" alt="national informatics centre" style="width: 180px; height: 39px;"> </a>
+                </div>
+            </footer>
+        </div>
+
+
+        <div id="mySidenav" class="sidenav1" style="height:510px;">
+            <div style="background-color:#6DA4DC;margin-top:-10px;">
+                <a style="font-size: 13px;text-align: right;margin-right:30px;" class="closebtn" id="close_nav">
+                    <b style="font-size: 30px;text-align: center;">&times;</b>
+                    <p style="font-size: 13px;text-align: center;color:white;">Accessibility Plugins <br> NIC Kerala CMS</p>
+                </a>
+            </div>
+
+            <table class="accessTable" style="border-spacing:1px;height:340px;margin-left:12px;margin-bottom:25px;width:90%;border-botttom:1px solid #ddd;">
+                <tr style="height:90px">
+                    <td id="keyboardNav" style="height:90px;text-align:center;">
+                        <img src="images/keyboard-nav.png" style="height:30px;width:30px;margin-top:20px;" /><br />Keyboard Nav <input type="hidden" id="keyboardNavOff" value="1" />
+                    </td>
+                    <td id="myCursor" style="height:90px;text-align:center;">
+                        <img src="images/big-cursor.png" style="height:30px;width:30px;margin-top:20px;" /><br />Cursor <input type="hidden" id="myCursorOff" value="1" />
+                    </td>
+                </tr>
+                <tr style="height:90px">
+                    <td id="contrast" style="height:90px;text-align:center;">
+                        <img src="images/contrasts.png" style="height:30px;width:30px;margin-top:20px;" /><br />Contrast +
+                        <input type="hidden" id="contrastOff" value="1" />
+                    </td>
+                    <td id="biggerText" style="height:90px;text-align:center;">
+                        <img src="images/bigger-text.png" style="height:30px;width:30px;margin-top:20px;" /><br />Bigger Text
+                        <input type="hidden" id="biggerTextOff" value="1" />
+                    </td>
+                </tr>
+                <tr style="height:90px">
+                    <td id="desaturate" style="height:90px;text-align:center;">
+                        <img src="images/desaturate.png" style="height:30px;width:30px;margin-top:20px;" /><br />Desaturate <input type="hidden" id="desaturateOff" value="1" />
+                    </td>
+                    <td id="highlightLink" style="height:90px;text-align:center;">
+                        <img src="images/highlight-links.png" style="height:30px;width:30px;margin-top:20px;" /><br />Highlight Links</li>
+                        <input type="hidden" id="highlightLinkOff" value="1" />
+                    </td>
+                </tr>
+
+
+
+                <tr style="height:90px">
+                    <td id="legiblefonts" style="height:90px;text-align:center;">
+                        <img src="images/legible-fonts.png" style="height:30px;width:30px;margin-top:20px;" /><br />Legible Fonts <input type="hidden" id="legiblefontsOff" value="1" />
+                    </td>
+                    <td style="height:90px;text-align:center;">
+
+                        <a href="images/screen-reader.html"> <img src="images/read-page.png" /><br />Read Page</a>
+
+                    </td>
+                </tr>
+            </table>
+        </div>
+</body>
+
+</html>
